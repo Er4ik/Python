@@ -23,26 +23,36 @@ def conv2dec(num, base):# функция перевода числа в деся
 
 def dec2any(num, base_res):# функция перевода числа в заданную систему счисления
   res = []# создаем результирующий список
+  if base_res > 10:
+    digs = "0123456789"
+    words = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    words_low = words.lower()
+    digs_words = digs + words + words_low
+    digs_words = list(digs_words) # создаем список и заполняем его
+    while num // base_res > 1:
+      res.append(digs_words[num % base_res])
+      num //= base_res
   while num > 0:
     res.append(num % base_res)# заполняем список числами нужной нам системы счисления
     num //= base_res
   res.reverse()# правильное значение для систем счисления
   return res
 
-num = input()# ввод числа
-if (num.isalnum() == False) and (num.isdigit() == False) and (num.isalpha == False):# проверка корректности ввода числа
+# основная программа
+num = input("Введите число, которое хотите перевести в другую систему счисления:\n")# ввод числа
+if (num.isalnum() == False) and (num.isdigit() == False) and (num.isalpha == False):
   num = input("Введите корректное число:\n")
-base = int(input())# ввод числа системы счисления
-while (base < 2) or (base > 62):# проверка корректности ввода числа
+base = int(input("Введите систему счисления данного числа:\n"))# ввод числа системы счисления
+while (base < 2) or (base > 62):
   base = int(input("Введите корректное число:\n"))
-base_res = int(input())# ввод числа результирующей системы счисления
-while (base_res < 2) or (base_res > 62):# проверка корректности ввода числа
+base_res = int(input("Введите систему счисления, в котороую хотите перевести число:\n"))# ввод числа результирующей системы счисления
+while (base_res < 2) or (base_res > 62):
   base_res = int(input("Введите корректное число:\n"))
 if num.isalnum():# проверка введеного числа на наличие букв и цифр
-  num = check_num(num)# присваиваем num значение, которое возвращает функция check_num
+  num = check_num(num)
 num = conv2dec(num, base)
 if base_res == 10:
   print(num)
 else:
   num = dec2any(num, base_res)
-  print(*num)
+  print(*num, sep = '')
