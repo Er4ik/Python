@@ -3,36 +3,44 @@ def check_num(num):# функция проверки числа на буквы 
   digs_words = "0123456789ABCDEF"
   digs_words = list(digs_words) # создаем список и заполняем его
   for i in range(len(num_res)):
-    if num_res[i].isalpha(): # проверка, состоит ли переменная только из букв
+    if num_res[i].isalpha(): # проверка, состоит ли значение только из букв
       for j in range(len(digs_words)):
         if num_res[i] == digs_words[j]: # проверка равенства элемента из num элементу digs_words
           num_res[i] = j
   return num_res
-'''
+
 def check_num2(num, base):# функция проверки корректности ввода числа
+  num1 = list(num)
   if not(num.isalnum()):
     num = input("\nВведите корректное число:\n")
-    check_num2(num, base)
+    return check_num2(num, base)
   elif (base > 10):
-    num1 = list(num)
+    flag = False
+    words = "ABCDEF"
     for i in range(len(num1)):
-      if num1[i].isalpha():
-        return num
-    num = input("\nВведите корректное число:\n")
-    check_num2(num, base)
-  elif base < 10:
-    num1 = list(num)
+      if num1[i] in words:
+        flag = True
+        break
+    if flag:
+      return num
+    else:
+      num = input("\nВведите корректное число:\n")
+      return check_num2(num, base)
+  elif base <= 10:
+    flag = True
     if num.isdigit():
       for i in range(len(num1)):
         if int(num1[i]) > base:
-          return num
-        else:
-          num = input("\nВведите корректное число:\n")
-          check_num2(num, base)
+          flag = False
     else:
       num = input("\nВведите корректное число, состоящее только из цифр:\n")
-      check_num2(num, base)
-'''
+      return check_num2(num, base)
+    if flag:
+      return num
+    else:
+      num = input("\nВведите корректное число:\n")
+      return check_num2(num, base)
+
 def conv2dec(num, base):# функция перевода числа в десятичную систему счисления
   counter = 0
   num_res = 0
@@ -60,12 +68,12 @@ base = int(input("Введите систему счисления числа:\n
 while (base < 2) or (base > 16):
   base = int(input("Введите корректное число:\n"))
 num = input("\nВведите число, которое хотите перевести в другую систему счисления:\n")# ввод числа
-'''num = check_num2(num, base)
-'''
+num = check_num2(num, base)
 base_res = int(input("\nВведите систему счисления, в котороую хотите перевести число:\n"))# ввод числа результирующей системы счисления
 while (base_res < 2) or (base_res > 16):
   base_res = int(input("Введите корректное число:\n"))
-num = check_num(num)
+if base > 10:
+  num = check_num(num)
 num = conv2dec(num, base)
 if base_res == 10:
   print("\nЧисло в", base_res, "системе счисления:")
