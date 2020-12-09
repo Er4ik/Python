@@ -30,7 +30,7 @@ def check_num2(num, base):# функция проверки корректнос
     flag = True
     if num.isdigit():
       for i in range(len(num1)):
-        if int(num1[i]) > base:
+        if int(num1[i]) >= base:
           flag = False
     else:
       num = input("\nВведите корректное число, состоящее только из цифр:\n")
