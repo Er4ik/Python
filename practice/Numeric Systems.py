@@ -11,7 +11,7 @@ def check_num(num):# функция проверки числа на буквы 
 
 def check_num2(num, base):# функция проверки корректности ввода числа
   num1 = list(num)
-  if not(num.isalnum()):
+  if (num.isalnum() == False):
     num = input("\nВведите корректное число:\n")
     return check_num2(num, base)
   elif (base > 10):
