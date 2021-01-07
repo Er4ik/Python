@@ -5,7 +5,7 @@ names = []
 
 def dwnld_img(url):
     global name
-    name = randrange(1, 10)
+    name = randrange(1, 10000)
     name = str(name) + "jpg"
     urllib.request.urlretrieve(url, name)
 
